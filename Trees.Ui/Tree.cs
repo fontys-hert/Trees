@@ -10,17 +10,25 @@ namespace Trees.Ui
     {
         private int heightCurrent = 55 * 100;
 
+        public string Name { get; private set; }
         public int AmountToShrinkGrowCm { get; private set; }
         public int HeightMaximum { get; private set; }
 
-        public Tree(int amountToShrinkGrowCm, int heightMaximum)
+        public Tree(string name, int amountToShrinkGrowCm, int heightMaximum)
         {
+            Name = name;
             if (amountToShrinkGrowCm > heightMaximum)
             {
                 throw new Exception("amount to shrink/grow cannot be higher than the maximum");
             }
             AmountToShrinkGrowCm = amountToShrinkGrowCm;
             HeightMaximum = heightMaximum * 100;
+        }
+
+        public Tree(string name, int amountToShrinkGrowCm, int heightMaximum, int height) 
+            : this(name, amountToShrinkGrowCm, heightMaximum)
+        {
+            heightCurrent = height;
         }
 
         public int HeightCurrent
@@ -33,14 +41,14 @@ namespace Trees.Ui
 
         public void Shrink()
         {
-            this.heightCurrent = this.heightCurrent - this.AmountToShrinkGrowCm;
+            heightCurrent = heightCurrent - AmountToShrinkGrowCm;
         }
 
         public void Grow()
         {
-            if (this.heightCurrent < 55 * 100)
+            if (heightCurrent < 55 * 100)
             {
-                this.heightCurrent = this.heightCurrent + this.AmountToShrinkGrowCm;
+                heightCurrent = heightCurrent + AmountToShrinkGrowCm;
             }
         }
     }

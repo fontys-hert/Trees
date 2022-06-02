@@ -18,6 +18,7 @@ namespace Trees.Ui
         public TreeDisplayForm()
         {
             InitializeComponent();
+            DisplayTreeHeights();
         }
 
         private void btnShrink_Click(object sender, EventArgs e)
@@ -26,7 +27,7 @@ namespace Trees.Ui
             birch.Shrink();
             DisplayTreeHeights();
         }
-
+      
         private void DisplayTreeHeights()
         {
             lblResult.Text = cedar.HeightCurrent.ToString();
