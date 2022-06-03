@@ -1,3 +1,5 @@
+using System.Data.SqlClient;
+
 namespace Trees.Ui
 {
     /*    - We want to implement a simulation for tree growth and shrinking.
@@ -12,12 +14,17 @@ namespace Trees.Ui
 
     public partial class TreeDisplayForm : Form
     {
-        Tree cedar = new Tree(30, 55);
-        Tree birch = new Tree(100, 100);
+        Tree cedar;
+        Tree birch;
+        TreeRepository repo;
 
         public TreeDisplayForm()
         {
             InitializeComponent();
+            repo = new TreeRepository(); 
+            var trees = repo.RetrieveHeightFromDatabase();
+            cedar = trees.cedar;
+            birch = trees.birch;
             DisplayTreeHeights();
         }
 
@@ -25,6 +32,7 @@ namespace Trees.Ui
         {
             cedar.Shrink();
             birch.Shrink();
+            repo.SaveToDatabase(birch, cedar);
             DisplayTreeHeights();
         }
       
@@ -38,6 +46,7 @@ namespace Trees.Ui
         {
             cedar.Grow();
             birch.Grow();
+            repo.SaveToDatabase(birch, cedar);
             DisplayTreeHeights();
         }
     }
